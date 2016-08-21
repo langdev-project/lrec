@@ -166,7 +166,7 @@ LREC = (function () {
 
                     if (this_record[l] === undefined) this_record[l] = fieldsrc[j].substr(k+3).trim();
                     else if (Array.isArray(this_record[l])) this_record[l].push(fieldsrc[j].substr(k+3).trim());
-                    else this_record[l] = this_record[l], fieldsrc[j].substr(k+3).trim()];
+                    else this_record[l] = [this_record[l], fieldsrc[j].substr(k+3).trim()];
 
                 }
 
