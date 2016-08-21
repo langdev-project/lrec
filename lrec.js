@@ -192,7 +192,7 @@ LREC = (function () {
 
             //  Ensures the first record is a metadata record:
 
-            if (!this.records[i].title) {
+            if (!this.records[i] || !this.records[i].title) {
                 console.error("LREC Error: First record is not a valid metadata record.");
                 return;
             }
