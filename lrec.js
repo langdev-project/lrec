@@ -93,7 +93,7 @@ LREC = (function () {
             //  Makes sure there's something to load:
 
             if (!this.src && !this.request) {
-                console.error("LREC Error: Attempted to load, but no source code was found and no request was made.");
+                console.log("LREC Error: Attempted to load, but no source code was found and no request was made.");
                 return;
             }
 
@@ -154,7 +154,7 @@ LREC = (function () {
                         //  Or a syntax error:
 
                         else {
-                            console.error("LREC Error: Syntax error on line number " + (j+1) + " of record number " + (i+1) + ".");
+                            console.log("LREC Error: Syntax error on line number " + (j+1) + " of record number " + (i+1) + ".");
                             continue;
                         }
 
@@ -193,44 +193,44 @@ LREC = (function () {
             //  Ensures the first record is a metadata record:
 
             if (!this.records[i] || !this.records[i].title) {
-                console.error("LREC Error: First record is not a valid metadata record.");
+                console.log("LREC Error: First record is not a valid metadata record.");
                 return;
             }
 
             //  Sets up metadata:
 
             if (Array.isArray(this.records[i].title)) {
-                console.error("LREC Error: Title is defined twice.");
+                console.log("LREC Error: Title is defined twice.");
                 this.title = this.records[i].title[0];
             }
             else this.title = this.records[i].title;
 
             if (Array.isArray(this.records[i].subtitle)) {
-                console.error("LREC Error: Subtitle is defined twice.");
+                console.log("LREC Error: Subtitle is defined twice.");
                 this.subtitle = this.records[i].subtitle[0];
             }
             else this.subtitle = this.records[i].subtitle;
 
             if (Array.isArray(this.records[i].author)) {
-                console.error("LREC Error: Author is defined twice.");
+                console.log("LREC Error: Author is defined twice.");
                 this.author = this.records[i].author[0];
             }
             else this.author = this.records[i].author;
 
             if (Array.isArray(this.records[i].date)) {
-                console.error("LREC Error: Date is defined twice.");
+                console.log("LREC Error: Date is defined twice.");
                 this.date = this.records[i].date[0];
             }
             else this.date = this.records[i].date;
 
             if (Array.isArray(this.records[i].language)) {
-                console.error("LREC Error: Language is defined twice.");
+                console.log("LREC Error: Language is defined twice.");
                 this.language = this.records[i].language[0];
             }
             else this.language = this.records[i].language;
 
             if (Array.isArray(this.records[i].description)) {
-                console.error("LREC Error: Description is defined twice.");
+                console.log("LREC Error: Description is defined twice.");
                 this.description = this.records[i].description[0];
             }
             else this.description = this.records[i].description;
@@ -240,7 +240,7 @@ LREC = (function () {
             else this.splashes = [];
 
             if (Array.isArray(this.records[i].frontmatter)) {
-                console.error("LREC Error: Frontmatter is defined twice.");
+                console.log("LREC Error: Frontmatter is defined twice.");
                 this.frontmatter = new URL(this.records[i].frontmatter[0]);
             }
             else if (this.records[i].frontmatter) this.frontmatter = new URL(this.records[i].frontmatter, this.base);
@@ -253,22 +253,22 @@ LREC = (function () {
                 //  Ensures there aren't any stray records:
 
                 if (this.records[i].title) {
-                    console.error("LREC Error: Metadata is defined twice.")
+                    console.log("LREC Error: Metadata is defined twice.")
                     continue;
                 }
 
                 //  Tag-group error checking:
 
                 if (Array.isArray(this.records[i].group)) {
-                    console.error("LREC Error: A tag-group record has multiple group fields.");
+                    console.log("LREC Error: A tag-group record has multiple group fields.");
                     continue;
                 }
                 if (this.groups[this.records[i].group]) {
-                    console.error("LREC Error: Tag-group '" + this.records[i].group + "' is defined twice.");
+                    console.log("LREC Error: Tag-group '" + this.records[i].group + "' is defined twice.");
                     continue;
                 }
                 if (!this.records[i].subgroup && !this.records[i].tag) {
-                    console.error("LREC Error: Tag-group '" + this.records[i].group + "' does not contain any tags or subgroups.");
+                    console.log("LREC Error: Tag-group '" + this.records[i].group + "' does not contain any tags or subgroups.");
                     continue;
                 }
 
@@ -277,7 +277,7 @@ LREC = (function () {
                 this.groups[this.records[i].group.toLowerCase()] = {parent: undefined, description: undefined};
 
                 if (Array.isArray(this.records[i].description)) {
-                    console.error("LREC Error: Tag-group '" + this.records[i].group + "' contains multiple descriptions.");
+                    console.log("LREC Error: Tag-group '" + this.records[i].group + "' contains multiple descriptions.");
                     this.groups[this.records[i].group.toLowerCase()].description = this.records[i].description[0];
                 }
                 else this.groups[this.records[i].group.toLowerCase()].description = this.records[i].description;
@@ -291,11 +291,11 @@ LREC = (function () {
                         //  Subgroup error checking:
 
                         if (this.groups[this.records[i].subgroup[j].toLowerCase()] === undefined) {
-                            console.error("LREC Error: Tag-group '" + this.records[i].subgroup[j].toLowerCase() + "' is not defined.");
+                            console.log("LREC Error: Tag-group '" + this.records[i].subgroup[j].toLowerCase() + "' is not defined.");
                             continue;
                         }
                         else if (this.groups[this.records[i].subgroup[j].toLowerCase()].parent) {
-                            console.error("LREC Error: Tag-group '" + this.records[i].subgroup[j].toLowerCase() + "' is a subgroup of multiple groups.");
+                            console.log("LREC Error: Tag-group '" + this.records[i].subgroup[j].toLowerCase() + "' is a subgroup of multiple groups.");
                             continue;
                         }
 
@@ -311,8 +311,8 @@ LREC = (function () {
 
                     //  Subgroup error checking:
 
-                    if (this.groups[this.records[i].subgroup.toLowerCase()] === undefined) console.error("LREC Error: Tag-group '" + this.records[i].subgroup.toLowerCase() + "' is not defined.");
-                    else if (this.groups[this.records[i].subgroup.toLowerCase()].parent) console.error("LREC Error: Tag-group '" + this.records[i].subgroup.toLowerCase() + "' is a subgroup of multiple groups.");
+                    if (this.groups[this.records[i].subgroup.toLowerCase()] === undefined) console.log("LREC Error: Tag-group '" + this.records[i].subgroup.toLowerCase() + "' is not defined.");
+                    else if (this.groups[this.records[i].subgroup.toLowerCase()].parent) console.log("LREC Error: Tag-group '" + this.records[i].subgroup.toLowerCase() + "' is a subgroup of multiple groups.");
 
                     //  Subgroup loading:
 
@@ -329,7 +329,7 @@ LREC = (function () {
                         //  Tag error checking:
 
                         if (this.tags[this.records[i].tag[j].toLowerCase()] && this.tags[this.records[i].tag[j].toLowerCase()].parent) {
-                            console.error("LREC Error: Tag '" + this.records[i].subgroup[j].toLowerCase() + "' is in multiple groups.");
+                            console.log("LREC Error: Tag '" + this.records[i].subgroup[j].toLowerCase() + "' is in multiple groups.");
                             continue;
                         }
 
@@ -345,7 +345,7 @@ LREC = (function () {
 
                     //  Tag error checking:
 
-                    if (this.groups[this.records[i].tag.toLowerCase()] && this.groups[this.records[i].tag.toLowerCase()].parent) console.error("LREC Error: Tag '" + this.records[i].subgroup + "' is in multiple groups.");
+                    if (this.groups[this.records[i].tag.toLowerCase()] && this.groups[this.records[i].tag.toLowerCase()].parent) console.log("LREC Error: Tag '" + this.records[i].subgroup + "' is in multiple groups.");
 
                     //  Tag loading:
 
@@ -366,11 +366,11 @@ LREC = (function () {
                 //  Ensures there aren't any stray records:
 
                 if (this.records[i].title) {
-                    console.error("LREC Error: Metadata is defined twice.");
+                    console.log("LREC Error: Metadata is defined twice.");
                     continue;
                 }
                 if (this.records[i].group) {
-                    console.error("LREC Error: Tag-group records must come directly after metadata.");
+                    console.log("LREC Error: Tag-group records must come directly after metadata.");
                     continue;
                 }
 
@@ -381,11 +381,11 @@ LREC = (function () {
                     //  Lexeme error checking:
 
                     if (Array.isArray(this.records[i].lexeme)) {
-                        console.error("LREC Error: A lexeme record has multiple lexeme fields.");
+                        console.log("LREC Error: A lexeme record has multiple lexeme fields.");
                         continue;
                     }
                     if (this.lexemes[this.records[i].lexeme]) {
-                        console.error("LREC Error: Lexeme '" + this.records[i].lexeme + "' is defined twice.");
+                        console.log("LREC Error: Lexeme '" + this.records[i].lexeme + "' is defined twice.");
                         continue;
                     }
 
@@ -396,6 +396,7 @@ LREC = (function () {
                         language: undefined,
                         pronunciation: [],
                         tags: [],
+                        gloss: "",
                         inflections: {},
                         alternates: {}
                     }
@@ -403,17 +404,17 @@ LREC = (function () {
                     //  Loads fields:
 
                     if (Array.isArray(this.records[i].at)) {
-                        console.error("LREC Error: Lexeme '" + this.records[i].lexeme + "' has two at fields.");
+                        console.log("LREC Error: Lexeme '" + this.records[i].lexeme + "' has two at fields.");
                         this.lexemes[this.records[i].lexeme].url = new URL(this.records[i].at[0]);
                     }
                     else if (this.records[i].at) this.lexemes[this.records[i].lexeme].url = new URL(this.records[i].at, this.base);
                     else {
-                        console.error("LREC Error: Lexeme '" + this.records[i].lexeme + "' has no at field.");
+                        console.log("LREC Error: Lexeme '" + this.records[i].lexeme + "' has no at field.");
                         this.lexemes[this.records[i].lexeme].url = new URL("about:blank");
                     }
 
                     if (Array.isArray(this.records[i].language)) {
-                        console.error("LREC Error: Lexeme '" + this.records[i].lexeme + "' has two language fields.");
+                        console.log("LREC Error: Lexeme '" + this.records[i].lexeme + "' has two language fields.");
                         this.lexemes[this.records[i].lexeme].language = this.records[i].language[0];
                     }
                     else this.lexemes[this.records[i].lexeme].language = this.records[i].language;
@@ -425,6 +426,12 @@ LREC = (function () {
                     if (Array.isArray(this.records[i].tagged)) this.lexemes[this.records[i].lexeme].tags = this.records[i].tagged.slice();
                     else if (this.records[i].tagged) this.lexemes[this.records[i].lexeme].tags = [this.records[i].tagged];
                     else this.lexemes[this.records[i].lexeme].tags = [];
+
+                    if (Array.isArray(this.records[i].gloss)) {
+                        console.log("LREC Error: Lexeme '" + this.records[i].lexeme + "' has two gloss fields.");
+                        this.lexemes[this.records[i].lexeme].gloss = String(this.records[i].gloss[0]);
+                    }
+                    else if (this.records[i].gloss) this.lexemes[this.records[i].lexeme].gloss = String(this.records[i].gloss);
 
                     //  Normalizes tags and records if necessary:
 
@@ -442,19 +449,19 @@ LREC = (function () {
                     //  Inflection error checking:
 
                     if (Array.isArray(this.records[i].inflected)) {
-                        console.error("LREC Error: An inflection record has multiple inflection fields.");
+                        console.log("LREC Error: An inflection record has multiple inflection fields.");
                         continue;
                     }
                     if (Array.isArray(this.records[i].of)) {
-                        console.error("LREC Error: Inflection '" + this.records[i].inflected + "' has two of fields.");
+                        console.log("LREC Error: Inflection '" + this.records[i].inflected + "' has two of fields.");
                         continue;
                     }
                     if (!this.lexemes[this.records[i].of]) {
-                        console.error("LREC Error: Inflection '" + this.records[i].inflected + "' points to a lexeme which does not exist ('" + this.records[i].of + "').");
+                        console.log("LREC Error: Inflection '" + this.records[i].inflected + "' points to a lexeme which does not exist ('" + this.records[i].of + "').");
                         continue;
                     }
                     if (this.lexemes[this.records[i].of].inflections[this.records[i].inflected]) {
-                        console.error("LREC Error: Inflection '" + this.records[i].inflected + "' of lexeme '" + this.records[i].of + "' is defined twice.");
+                        console.log("LREC Error: Inflection '" + this.records[i].inflected + "' of lexeme '" + this.records[i].of + "' is defined twice.");
                         continue;
                     }
 
@@ -480,15 +487,15 @@ LREC = (function () {
                     //  Alternate error checking:
 
                     if (Array.isArray(this.records[i].alternate)) {
-                        console.error("LREC Error: An alternate record has multiple alternate fields.");
+                        console.log("LREC Error: An alternate record has multiple alternate fields.");
                         continue;
                     }
                     if (Array.isArray(this.records[i].of)) {
-                        console.error("LREC Error: Alternate '" + this.records[i].alternate + "' has two of fields.");
+                        console.log("LREC Error: Alternate '" + this.records[i].alternate + "' has two of fields.");
                         continue;
                     }
                     if (Array.isArray(this.records[i].for)) {
-                        console.error("LREC Error: Alternate '" + this.records[i].alternate + "' has two for fields.");
+                        console.log("LREC Error: Alternate '" + this.records[i].alternate + "' has two for fields.");
                         continue;
                     }
 
@@ -499,11 +506,11 @@ LREC = (function () {
                         //  More error handling:
 
                         if (!this.lexemes[this.records[i].for]) {
-                            console.error("LREC Error: Alternate '" + this.records[i].alternate + "' points to a lexeme which does not exist ('" + this.records[i].for + "').");
+                            console.log("LREC Error: Alternate '" + this.records[i].alternate + "' points to a lexeme which does not exist ('" + this.records[i].for + "').");
                             continue;
                         }
                         if (!this.records[i].of && this.lexemes[this.records[i].for].alternates[this.records[i].alternate]) {
-                            console.error("LREC Error: Alternate '" + this.records[i].alternate + "' of lexeme '" + this.records[i].for + "' is defined twice.");
+                            console.log("LREC Error: Alternate '" + this.records[i].alternate + "' of lexeme '" + this.records[i].for + "' is defined twice.");
                             continue;
                         }
 
@@ -517,7 +524,7 @@ LREC = (function () {
                         //  Loads fields:
 
                         if (Array.isArray(this.records[i].script)) {
-                            console.error("LREC Error: Alternate '" + this.records[i].alternate + "' of lexeme '" + this.records[i].for + "' has two script fields.");
+                            console.log("LREC Error: Alternate '" + this.records[i].alternate + "' of lexeme '" + this.records[i].for + "' has two script fields.");
                             this.lexemes[this.records[i].for].alternates[this.records[i].alternate].script = this.records[i].script[0];
                         }
                         else this.lexemes[this.records[i].for].alternates[this.records[i].alternate].script = this.records[i].script;
@@ -536,15 +543,15 @@ LREC = (function () {
                         //  More error handling:
 
                         if (!this.lexemes[this.records[i].of]) {
-                            console.error("LREC Error: Alternate '" + this.records[i].alternate + "' points to a lexeme which does not exist ('" + this.records[i].of + "').");
+                            console.log("LREC Error: Alternate '" + this.records[i].alternate + "' points to a lexeme which does not exist ('" + this.records[i].of + "').");
                             continue;
                         }
                         if (!this.lexemes[this.records[i].of].inflections[this.records[i].for]) {
-                            console.error("LREC Error: Alternate '" + this.records[i].alternate + "' points to an inflection which does not exist ('" + this.records[i].for + "' of lexeme '" + this.records[i].of + "').");
+                            console.log("LREC Error: Alternate '" + this.records[i].alternate + "' points to an inflection which does not exist ('" + this.records[i].for + "' of lexeme '" + this.records[i].of + "').");
                             continue;
                         }
                         if (this.lexemes[this.records[i].of].inflections[this.records[i].for].alternates[this.records[i].alternate]) {
-                            console.error("LREC Error: Alternate '" + this.records[i].alternate + "' of inflection '" + this.records[i].for + "' of lexeme '" + this.records[i].of + "' is defined twice.");
+                            console.log("LREC Error: Alternate '" + this.records[i].alternate + "' of inflection '" + this.records[i].for + "' of lexeme '" + this.records[i].of + "' is defined twice.");
                             continue;
                         }
 
@@ -558,7 +565,7 @@ LREC = (function () {
                         //  Loads fields:
 
                         if (Array.isArray(this.records[i].script)) {
-                            console.error("LREC Error: Alternate '" + this.records[i].alternate + "' of inflection '" + this.records[i].for + "' of lexeme '" + this.records[i].of + "' has two script fields.");
+                            console.log("LREC Error: Alternate '" + this.records[i].alternate + "' of inflection '" + this.records[i].for + "' of lexeme '" + this.records[i].of + "' has two script fields.");
                             this.lexemes[this.records[i].of].inflections[this.records[i].for].alternates[this.records[i].alternate].script = this.records[i].script[0];
                         }
                         else this.lexemes[this.records[i].of].inflections[this.records[i].for].alternates[this.records[i].alternate].script = this.records[i].script;
@@ -572,7 +579,7 @@ LREC = (function () {
 
                 }
 
-                else if (!this.records[i].note) console.error("LREC Error: Record not recognized.");
+                else if (!this.records[i].note) console.log("LREC Error: Record not recognized.");
 
             }
 
