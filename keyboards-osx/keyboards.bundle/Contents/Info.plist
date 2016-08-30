@@ -5,15 +5,22 @@
 	<key>CFBundleIdentifier</key>
 	<string>org.sil.ukelele.keyboardlayout.langdevkeyboardlayouts</string>
 	<key>CFBundleName</key>
-	<string>LANGDEV Keyboard Layouts</string>
+	<string>keyboards</string>
 	<key>CFBundleVersion</key>
-	<string>1.1</string>
+	<string>2.1</string>
 	<key>KLInfo_Bencode</key>
 	<dict>
 		<key>TISInputSourceID</key>
 		<string>org.sil.ukelele.keyboardlayout.langdevkeyboardlayouts.bencode</string>
 		<key>TISIntendedLanguage</key>
 		<string>en</string>
+	</dict>
+	<key>KLInfo_Sevensi</key>
+	<dict>
+		<key>TISInputSourceID</key>
+		<string>org.sil.ukelele.keyboardlayout.langdevkeyboardlayouts.sevensi</string>
+		<key>TISIntendedLanguage</key>
+		<string>art</string>
 	</dict>
 </dict>
 </plist>

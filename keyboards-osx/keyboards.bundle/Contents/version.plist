@@ -5,8 +5,8 @@
 	<key>BuildVersion</key>
 	<string>1</string>
 	<key>ProjectName</key>
-	<string>LANGDEV Keyboard Layouts</string>
+	<string>keyboards</string>
 	<key>SourceVersion</key>
-	<string>2016-10-29</string>
+	<string>2016-08-30</string>
 </dict>
 </plist>
