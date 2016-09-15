@@ -452,6 +452,9 @@ LREC = (function () {
                         console.log("LREC Error: An inflection record has multiple inflection fields.");
                         continue;
                     }
+                    if (!this.records[i].of) {
+                        console.log("LREC Error: Inflection '" + this.records[i].inflected + "' has no of field.");
+                    }
                     if (Array.isArray(this.records[i].of)) {
                         console.log("LREC Error: Inflection '" + this.records[i].inflected + "' has two of fields.");
                         continue;
@@ -490,6 +493,9 @@ LREC = (function () {
                         console.log("LREC Error: An alternate record has multiple alternate fields.");
                         continue;
                     }
+                    if (!this.records[i].for) {
+                        console.log("LREC Error: Alternate '" + this.records[i].alternate + "' has no for field.");
+                    }
                     if (Array.isArray(this.records[i].of)) {
                         console.log("LREC Error: Alternate '" + this.records[i].alternate + "' has two of fields.");
                         continue;
@@ -509,8 +515,8 @@ LREC = (function () {
                             console.log("LREC Error: Alternate '" + this.records[i].alternate + "' points to a lexeme which does not exist ('" + this.records[i].for + "').");
                             continue;
                         }
-                        if (!this.records[i].of && this.lexemes[this.records[i].for].alternates[this.records[i].alternate]) {
-                            console.log("LREC Error: Alternate '" + this.records[i].alternate + "' of lexeme '" + this.records[i].for + "' is defined twice.");
+                        if (this.lexemes[this.records[i].for].alternates[this.records[i].alternate]) {
+                            console.log("LREC Error: Alternate '" + this.records[i].alternate + "' for lexeme '" + this.records[i].for + "' is defined twice.");
                             continue;
                         }
 
@@ -524,7 +530,7 @@ LREC = (function () {
                         //  Loads fields:
 
                         if (Array.isArray(this.records[i].script)) {
-                            console.log("LREC Error: Alternate '" + this.records[i].alternate + "' of lexeme '" + this.records[i].for + "' has two script fields.");
+                            console.log("LREC Error: Alternate '" + this.records[i].alternate + "' for lexeme '" + this.records[i].for + "' has two script fields.");
                             this.lexemes[this.records[i].for].alternates[this.records[i].alternate].script = this.records[i].script[0];
                         }
                         else this.lexemes[this.records[i].for].alternates[this.records[i].alternate].script = this.records[i].script;
@@ -551,7 +557,7 @@ LREC = (function () {
                             continue;
                         }
                         if (this.lexemes[this.records[i].of].inflections[this.records[i].for].alternates[this.records[i].alternate]) {
-                            console.log("LREC Error: Alternate '" + this.records[i].alternate + "' of inflection '" + this.records[i].for + "' of lexeme '" + this.records[i].of + "' is defined twice.");
+                            console.log("LREC Error: Alternate '" + this.records[i].alternate + "' for inflection '" + this.records[i].for + "' of lexeme '" + this.records[i].of + "' is defined twice.");
                             continue;
                         }
 
@@ -579,7 +585,7 @@ LREC = (function () {
 
                 }
 
-                else if (!this.records[i].note) console.log("LREC Error: Record not recognized.");
+                else console.log("LREC Error: Record not recognized.");
 
             }
 
